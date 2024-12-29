@@ -1,0 +1,119 @@
+
+  
+  /* Title */
+  h1 {
+    margin: 0; /* Remove default margin */
+    padding: 10px 0; /* Add some padding to the title */
+    font-size: 2rem;
+    text-align: center;
+    flex-shrink: 0; /* Prevent shrinking of the title */
+  }
+  
+  /* Calendar Container */
+  .calendar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0; /* Remove margin */
+    padding: 0; /* Remove any default padding */
+    width: 100%; /* Make sure the calendar stretches the full width */
+    box-sizing: border-box; /* Include padding/border in element's total width/height */
+    flex-grow: 1; /* Allow the calendar to take up the remaining vertical space */
+    overflow: auto; /* Allow scrolling if necessary */
+  }
+  
+  /* Weekday Header */
+  .weekdays {
+    display: flex;
+    width: 100%;
+    justify-content: space-between; /* Space out weekday names evenly */
+    font-weight: bold;
+    margin-bottom: 0; /* Remove margin */
+    padding: 5px 0; /* Add padding to give some space */
+    flex-shrink: 0; /* Prevent the header from shrinking */
+    box-sizing: border-box; /* Include padding in height calculation */
+  }
+  
+  /* Weekday Header Item */
+  .weekday {
+    width: calc(100% / 7); /* Each weekday takes up an equal share of the width */
+    text-align: center;
+    padding: 3px 0; /* Reduce padding to save space */
+    box-sizing: border-box;
+    font-size: 0.9rem; /* Reduce font size to save space */
+  }
+  
+  /* Week Rows */
+  .weeks {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-grow: 1; /* Take up the remaining vertical space */
+    justify-content: space-evenly; /* Space weeks evenly */
+    margin: 0; /* Remove margin between weeks */
+    padding: 0; /* Remove padding */
+  }
+  
+  /* Week Row */
+  .week {
+    display: flex;
+    justify-content: flex-start; /* Align to the left */
+    width: 100%; /* Ensure the week stretches the width of the screen */
+    margin-bottom: 0; /* Remove margin */
+    flex-grow: 1; /* Allow each week to grow to take up the remaining vertical space */
+    box-sizing: border-box; /* Ensure no overflow */
+  }
+  
+  /* Week Number Column */
+  .week-number {
+    width: 40px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-right: 1px solid #ddd;
+    box-sizing: border-box;
+  }
+  
+  /* Day Cells */
+  .day {
+    width: calc(100% / 7); /* Each day cell takes up an equal share of the width */
+    height: calc(100vh / 6); /* Adjust height to make sure the calendar fits */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px; /* Remove margins to prevent overflow */
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #ddd; /* Add a light border to each cell */
+    transition: background-color 0.3s ease; /* Smooth color transitions */
+    box-sizing: border-box; /* Include padding and borders in the height/width calculations */
+  }
+  
+  /* Day Statuses (Colors) */
+  .day.husband {
+    background-color: lightblue;
+  }
+  
+  .day.wife {
+    background-color: lightcoral;
+  }
+  
+  .day.both {
+    background-color: purple;
+    color: white;
+  }
+  
+  /* Empty Cells (for incomplete weeks) */
+  .day.empty {
+    background-color: transparent;
+    border: none;
+  }
+  
+  /* Hover Effect */
+  .day:hover {
+    opacity: 0.7; /* Slight hover effect */
+  }
+  

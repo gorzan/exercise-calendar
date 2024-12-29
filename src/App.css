@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+/* Page Container (Flexbox layout) */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Make sure the page takes up the full height of the viewport */
+}
