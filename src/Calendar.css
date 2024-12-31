@@ -1,7 +1,5 @@
-
-  
-  /* Title */
-  h1 {
+/* Title */
+h1 {
     margin: 0; /* Remove default margin */
     padding: 10px 0; /* Add some padding to the title */
     font-size: 2rem;
@@ -78,8 +76,8 @@
   
   /* Day Cells */
   .day {
-    width: calc(100% / 7); /* Each day cell takes up an equal share of the width */
-    height: calc(100vh / 6); /* Adjust height to make sure the calendar fits */
+    width: calc(100% / 7); /* Ensure all day cells take up equal space */
+    height: calc(100vh / 6); /* Adjust height to fit the available space */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -87,9 +85,10 @@
     cursor: pointer;
     border-radius: 5px;
     text-align: center;
-    border: 1px solid #ddd; /* Add a light border to each cell */
+    border: 1px solid #ddd; /* Light border around each cell */
     transition: background-color 0.3s ease; /* Smooth color transitions */
     box-sizing: border-box; /* Include padding and borders in the height/width calculations */
+    position: relative; /* For positioning of the pseudo-element */
   }
   
   /* Day Statuses (Colors) */
@@ -101,15 +100,30 @@
     background-color: lightcoral;
   }
   
+  /* Both Husband and Wife (Diagonal split) */
   .day.both {
-    background-color: purple;
+    background: linear-gradient(to bottom right, lightblue 50%, lightcoral 50%);
     color: white;
+    position: relative;
   }
   
-  /* Empty Cells (for incomplete weeks) */
-  .day.empty {
+  .day.both:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-top-left-radius: 5px; /* Rounded corners for the split */
+    border-bottom-right-radius: 5px; /* Rounded corners for the split */
+    border: 1px solid #ddd; /* Optional: keeps the border between the two colors */
+  }
+  
+/* Empty Cells (for incomplete weeks) */
+.day.empty {
     background-color: transparent;
     border: none;
+    cursor: default; /* Make it clear that these cells are not clickable */
   }
   
   /* Hover Effect */
