@@ -102,8 +102,7 @@ h1 {
   
   /* Both Husband and Wife (Diagonal split) */
   .day.both {
-    background: linear-gradient(to bottom right, lightblue 50%, lightcoral 50%);
-    color: white;
+    background: linear-gradient(to bottom right, #ffcd58 50%, #1e90ff 50%);
     position: relative;
   }
   
