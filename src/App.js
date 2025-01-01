@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState, useEffect } from 'react';
 import Calendar from './Calendar'; // Your calendar component
 import ActivityModal from './ActivityModal'; // The modal component
@@ -83,15 +82,15 @@ const App = () => {
 
   // Format the full date (Date object) to YYYY-MM-DD
   const formatDate = (date) => {
-    if (date instanceof Date && !isNaN(date)) {
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0'); // Get month and pad with 0
-      const day = String(date.getDate()).padStart(2, '0'); // Get day and pad with 0
-      return `${year}-${month}-${day}`; // Return formatted date string
-    } else {
+    if (!date || !(date instanceof Date) || isNaN(date)) {
       console.error('Invalid date passed to formatDate:', date);
-      return ''; // Return empty string if the date is invalid
+      return ''; // Return an empty string if the date is invalid
     }
+  
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Get month and pad with 0
+    const day = String(date.getDate()).padStart(2, '0'); // Get day and pad with 0
+    return `${year}-${month}-${day}`; // Return formatted date string
   };
 
   // Navigate to the next month

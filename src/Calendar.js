@@ -21,7 +21,7 @@ const Calendar = ({ data, onClickDate, getCellClass, currentMonth }) => {
 
   // Loop through each day of the month
   for (let i = 0; i < adjustedFirstDay; i++) {
-    currentWeek.push({ day: null, status: null });
+    currentWeek.push({ day: null, status: 'empty' });
   }
 
   for (let day = 1; day <= daysInMonth; day++) {
@@ -60,8 +60,8 @@ const Calendar = ({ data, onClickDate, getCellClass, currentMonth }) => {
               return (
                 <div
                   key={dayIndex}
-                  className={`day ${getCellClass(date)}`} // Get class based on exercise status
-                  onClick={() => onClickDate(date)} // Pass the full date object
+                  className={`day ${status === 'empty' ? 'empty' : getCellClass(date)}`} // Get class based on exercise status
+                  onClick={status !== 'empty' ? () => onClickDate(date): null} // Pass the full date object
                 >
                   {day}
                 </div>
