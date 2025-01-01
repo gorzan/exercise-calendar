@@ -9,7 +9,7 @@ const App = () => {
   const [data, setData] = useState({});
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
-  const [currentMonth, setCurrentMonth] = useState(new Date()); // Start with current month
+  const [currentMonth] = useState(new Date()); // Start with current month
 
   // Fetch initial data from Firestore
   useEffect(() => {
