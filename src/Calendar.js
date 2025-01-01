@@ -2,11 +2,17 @@
 import React from 'react';
 import './Calendar.css';
 
+// Check if currentMonth is valid, otherwise default to the current date
 const Calendar = ({ data, onClickDate, getCellClass, currentMonth }) => {
+  if (!currentMonth) {
+    console.error("Invalid currentMonth:", currentMonth); // Log if currentMonth is invalid
+    currentMonth = new Date(); // Default to the current date
+  }
+
   const firstDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
   const daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
   const firstDayOfWeek = firstDayOfMonth.getDay(); // Day of the week of the 1st day of the month
-  
+
   const weeks = [];
   let currentWeek = [];
 
@@ -54,7 +60,7 @@ const Calendar = ({ data, onClickDate, getCellClass, currentMonth }) => {
               return (
                 <div
                   key={dayIndex}
-                  className={`day ${getCellClass(date)}`}
+                  className={`day ${getCellClass(date)}`} // Get class based on exercise status
                   onClick={() => onClickDate(date)} // Pass the full date object
                 >
                   {day}
@@ -72,11 +78,11 @@ const Calendar = ({ data, onClickDate, getCellClass, currentMonth }) => {
 };
 
 // Helper function to format a Date object as YYYY-MM-DD
-const formatDate = (date) => {
+export const formatDate = (date) => {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`; // Return formatted date string
+  return `${year}-${month}-${day}`; // Format date as YYYY-MM-DD
 };
 
 export default Calendar;

@@ -9,7 +9,7 @@ const App = () => {
   const [data, setData] = useState({});
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
-  const [currentMonth] = useState(new Date()); // Start with current month
+  const [currentMonth, setCurrentMonth] = useState(new Date()); // Start with current month
 
   // Fetch initial data from Firestore
   useEffect(() => {
@@ -32,7 +32,7 @@ const App = () => {
 
   // Handle date click to open modal
   const handleClickDate = (date) => {
-    setSelectedDay(date); // Now using full date object
+    setSelectedDay(date); // Set selectedDay as a Date object
     setModalOpen(true); // Open the modal to register exercise
   };
 
@@ -52,59 +52,73 @@ const App = () => {
     return ''; // Default to no exercise (no class applied)
   };
 
-// src/App.js
-const handleSave = (date, husband, wife) => {
-  const formattedDate = formatDate(date); // Format the date to YYYY-MM-DD
+  // Handle saving data to Firestore
+  const handleSave = (date, husband, wife) => {
+    const formattedDate = formatDate(date); // Format the date to YYYY-MM-DD
 
-  // Ensure that the formattedDate is a valid string
-  if (!formattedDate) {
-    console.error('Invalid date:', date);
-    return;
-  }
+    // Ensure that the formattedDate is a valid string
+    if (!formattedDate) {
+      console.error('Invalid date:', date);
+      return;
+    }
 
-  // Update local state
-  setData((prevData) => ({
-    ...prevData,
-    [formattedDate]: { husband, wife },
-  }));
+    // Update local state
+    setData((prevData) => ({
+      ...prevData,
+      [formattedDate]: { husband, wife },
+    }));
 
-  // Save the updated data to Firestore
-  setDoc(doc(db, 'exerciseData', formattedDate), { husband, wife }) // The third argument is the document ID
-    .then(() => {
-      console.log('Data saved to Firestore');
-      fetchData(); // Re-fetch data after saving
-    })
-    .catch((error) => {
-      console.error('Error saving data to Firestore:', error);
-    });
+    // Save the updated data to Firestore
+    setDoc(doc(db, 'exerciseData', formattedDate), { husband, wife })
+      .then(() => {
+        console.log('Data saved to Firestore');
+        fetchData(); // Re-fetch data after saving
+      })
+      .catch((error) => {
+        console.error('Error saving data to Firestore:', error);
+      });
 
-  setModalOpen(false); // Close modal after saving
-};
+    setModalOpen(false); // Close modal after saving
+  };
 
+  // Format the full date (Date object) to YYYY-MM-DD
+  const formatDate = (date) => {
+    if (date instanceof Date && !isNaN(date)) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Get month and pad with 0
+      const day = String(date.getDate()).padStart(2, '0'); // Get day and pad with 0
+      return `${year}-${month}-${day}`; // Return formatted date string
+    } else {
+      console.error('Invalid date passed to formatDate:', date);
+      return ''; // Return empty string if the date is invalid
+    }
+  };
 
-// Helper function to format a Date object or string as YYYY-MM-DD
-const formatDate = (date) => {
-  // If it's already a string in YYYY-MM-DD format, convert it to a Date object
-  if (typeof date === 'string') {
-    date = new Date(date); // Convert string to Date
-  }
+  // Navigate to the next month
+  const goToNextMonth = () => {
+    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1));
+  };
 
-  // Ensure it's a valid Date object
-  if (date instanceof Date && !isNaN(date)) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Get month and pad with 0
-    const day = String(date.getDate()).padStart(2, '0'); // Get day and pad with 0
-    return `${year}-${month}-${day}`; // Return formatted date string
-  } else {
-    console.error('Invalid date passed to formatDate:', date);
-    return ''; // Return empty string if the date is invalid
-  }
-};
+  // Navigate to the previous month
+  const goToPreviousMonth = () => {
+    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1));
+  };
 
+  // Format the current month for display in the subtitle (e.g., "January 2025")
+  const getFormattedMonthYear = () => {
+    const month = currentMonth.toLocaleString('default', { month: 'long' });
+    const year = currentMonth.getFullYear();
+    return `${month} ${year}`;
+  };
 
   return (
     <div className="page-container">
-      <h1>Exercise Calendar</h1>
+      <div className="header">
+        <button onClick={goToPreviousMonth}>Previous</button> {/* Previous month button */}
+        <h2>{getFormattedMonthYear()}</h2> {/* Display current month and year */}
+        <button onClick={goToNextMonth}>Next</button> {/* Next month button */}
+      </div>
+
       <div className="calendar">
         <Calendar
           data={data}
@@ -113,13 +127,14 @@ const formatDate = (date) => {
           currentMonth={currentMonth} // Pass the current month to the calendar
         />
       </div>
+
       <ActivityModal
         isOpen={isModalOpen}
         onRequestClose={() => setModalOpen(false)}
         onSubmit={handleSave}
-        day={selectedDay ? formatDate(selectedDay) : null} // Format selectedDay for display
+        day={selectedDay || new Date()}  // Ensure day is never null (fallback to current date)
         currentData={
-          data[selectedDay ? formatDate(selectedDay) : ''] || {
+          data[formatDate(selectedDay)] || {
             husband: { type: 'No exercise', exercised: false },
             wife: { type: 'No exercise', exercised: false },
           }

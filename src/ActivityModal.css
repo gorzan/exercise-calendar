@@ -1,80 +1,61 @@
-/* Modal container to align the sections horizontally */
+/* src/ActivityModal.css */
+
+/* Centering Modal on the Screen */
+.Modal__Content {
+  max-width: 500px; /* Set a max-width so the modal doesn't stretch too wide */
+  width: 90%; /* Allow the modal to be responsive */
+  margin: 0 auto; /* Center the modal horizontally */
+  padding: 20px; /* Add some padding inside the modal */
+  border-radius: 10px; /* Rounded corners */
+  background-color: white; /* White background for the modal */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add a soft shadow */
+  position: absolute; /* Position absolutely */
+  top: 50%; /* Position from top */
+  left: 50%; /* Position from left */
+  transform: translate(-50%, -50%); /* Adjust the position to center */
+}
+
+h2 {
+  margin-top: 0; /* Remove the default margin for the header */
+}
+
 .modal-container {
-    display: flex;
-    justify-content: space-between; /* Distribute the sections equally */
-    width: 100%;
-    padding: 20px;
-  }
-  
-  /* Individual section (wife or husband) */
-  .person-section {
-    flex: 1; /* Each section takes up equal space */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-  }
-  
-  .person-section.left {
-    /* Specific styles for the wife's section (optional) */
-  }
-  
-  .person-section.right {
-    /* Specific styles for the husband's section (optional) */
-  }
-  
-  h3 {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-  }
-  
-  /* Button styles */
-  .exercise-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .exercise-buttons button {
-    padding: 10px;
-    margin: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    background-color: #f0f0f0;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    width: 150px; /* Set a fixed width for buttons */
-  }
-  
-  .exercise-buttons button.selected {
-    background-color: #4caf50;
-    color: white;
-    transform: scale(1.05);
-  }
-  
-  .exercise-buttons button:hover {
-    background-color: #ddd;
-  }
-  
-  .exercise-buttons button:focus {
-    outline: none;
-  }
-  
-  button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.person-section {
+  display: flex;
+  flex-direction: column; /* Stack the buttons vertically */
+  align-items: center;
+  width: 45%; /* Control the width of each person’s section */
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 25px; /* Rounded corners for modern look */
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  background: linear-gradient(145deg, #6c7ae0, #4a55d0); /* Gradient background */
+  color: white; /* Text color */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  margin-bottom: 10px; /* Space between buttons */
+  width: 100%; /* Make buttons take up full width within each section */
+}
+
+button.selected {
+  background-color: #56c4f3; /* A more intense blue when selected */
+}
+
+button:hover {
+  transform: scale(1.05); /* Scale-up effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Increase shadow depth */
+}
+
+button:active {
+  transform: scale(1); /* Revert to original size when clicked */
+}
