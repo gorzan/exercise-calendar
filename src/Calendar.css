@@ -93,16 +93,16 @@ h1 {
   
   /* Day Statuses (Colors) */
   .day.husband {
-    background-color: #1e90ff;
+    background-color: #00aaff;
   }
   
   .day.wife {
-    background-color: #ffcd58;
+    background-color: #ffb60c;
   }
   
   /* Both Husband and Wife (Diagonal split) */
   .day.both {
-    background: linear-gradient(to bottom right, #ffcd58 50%, #1e90ff 50%);
+    background: linear-gradient(to bottom right, #ffb60c 50%, #00aaff 50%);
     position: relative;
   }
   
