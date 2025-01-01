@@ -93,11 +93,11 @@ h1 {
   
   /* Day Statuses (Colors) */
   .day.husband {
-    background-color: lightblue;
+    background-color: #1e90ff;
   }
   
   .day.wife {
-    background-color: lightcoral;
+    background-color: #ffcd58;
   }
   
   /* Both Husband and Wife (Diagonal split) */
